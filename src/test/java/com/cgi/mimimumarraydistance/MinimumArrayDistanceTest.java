@@ -72,4 +72,11 @@ public class MinimumArrayDistanceTest {
     }
 
   }
+
+  @Test
+  public void testMinDist_OneMore() {
+    int[] arr = { 3, 8, 15, 29, 22, -98, -2 };
+    int minimumDistance = 4; // Corrected to the actual minimum distance
+    assertEquals(minimumDistance, MinimumArrayDistance.findMinimumCount(arr));
+  }
 }

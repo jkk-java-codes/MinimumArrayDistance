@@ -1,6 +1,7 @@
 package com.cgi.mimimumarraydistance;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 public class MinimumArrayDistance {
 
@@ -9,24 +10,18 @@ public class MinimumArrayDistance {
       return -1;
     }
 
-    // Sort the array first
     Arrays.sort(arr);
 
-    // Minimum distance btw element using streams
-    long minDist = Arrays.stream(arr, 1, arr.length)
+    long minDist = IntStream.range(1, arr.length)
         .mapToLong(i -> {
-          int index = Arrays.binarySearch(arr, i);
-          return (long) arr[index] - (long) arr[index - 1] - 1;
+          if (arr[i] == arr[i - 1]) {
+            return 0;
+          }
+          return (long) arr[i] - (long) arr[i - 1] - 1;
         })
         .min()
         .orElse(Long.MAX_VALUE);
 
-    // handling duplicates or consecutive numbers
-    if (minDist < 0) {
-      return 0;
-    }
-
-    // Handle distance conversion regarding large values resulting possible overflow
     if (minDist > Integer.MAX_VALUE) {
       throw new ArithmeticException("Distance calculation out of int range.");
     }
